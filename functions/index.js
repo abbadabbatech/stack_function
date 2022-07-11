@@ -55,3 +55,8 @@ app.get("/:id", (req, res) => {
 // app.get('/', (req, res) => res.send(Widgets.list()));
 
 exports.getStacks = functions.https.onRequest(app);
+
+exports.pushMessageFromStack = functions.db.ref("/Stacks")
+    .onCreate((snap, context) => {
+      const mystack = snap.val();
+    });
