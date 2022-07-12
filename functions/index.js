@@ -56,7 +56,15 @@ app.get("/:id", (req, res) => {
 
 exports.getStacks = functions.https.onRequest(app);
 
-exports.pushMessageFromStack = functions.db.ref("/Stacks")
-    .onCreate((snap, context) => {
+exports.pushMessageFromStack = functions
+    .runwith({ timeoutSeconds: 540 })
+    .firestore.document("Stacks/{id}")
+    .onCreate((snap, _) => {
       const mystack = snap.val();
+      db.collection("Players").doc(mystack.player).collection("Followers").get()
+      .then((followers) => {
+        followers.forEach((follow) => {
+          
+        })
+      })
     });
