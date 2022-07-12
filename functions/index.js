@@ -61,10 +61,22 @@ exports.pushMessageFromStack = functions
     .firestore.document("Stacks/{id}")
     .onCreate((snap, _) => {
       const mystack = snap.val();
+      let sendusers = "";
       db.collection("Players").doc(mystack.player).collection("Followers").get()
-      .then((followers) => {
-        followers.forEach((follow) => {
-          
-        })
-      })
+          .then((followers) => {
+            followers.forEach((follow) => {
+              sendusers = sendusers + "," + follow;
+            });
+            const parmData = {"stackClick": "/Stacks/$mystack.id"};
+            const pushData = {
+              "notification_title": mystack.title,
+              "notification_text": mystack.title,
+              "notification_image_url": mystack.thumbnail,
+              "user_refs": sendusers,
+              "imitial_page_name": "Stack",
+              "parameter_data": parmData,
+              "timestamp": Date.now(),
+            };
+            db.collection("ff_push_notifications").doc.set(pushData);
+          });
     });
