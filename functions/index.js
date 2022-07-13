@@ -57,7 +57,7 @@ app.get("/:id", (req, res) => {
 exports.getStacks = functions.https.onRequest(app);
 
 exports.pushMessageFromStack = functions
-    .runwith({ timeoutSeconds: 540 })
+    .runWith({timeoutSeconds: 540})
     .firestore.document("Stacks/{id}")
     .onCreate((snap, _) => {
       const mystack = snap.val();
@@ -67,6 +67,8 @@ exports.pushMessageFromStack = functions
             followers.forEach((follow) => {
               sendusers = sendusers + "," + follow;
             });
+            console.log("SENDUSERS: "+sendusers);
+            console.log("STACK-ID: "+mystack.id);
             const parmData = {"stackClick": "/Stacks/$mystack.id"};
             const pushData = {
               "notification_title": mystack.title,
