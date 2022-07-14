@@ -62,7 +62,7 @@ exports.pushMessageFromStack = functions
     .onCreate((snap, _) => {
       const mystack = snap.data();
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
-      db.collection("Players").doc(mystack.player).collection("Followers").get()
+      db.collection("Players").doc(mystack.player.id).collection("Followers").get()
           .then((followers) => {
             followers.forEach((follow) => {
               sendusers = sendusers + "," + follow;
@@ -71,7 +71,7 @@ exports.pushMessageFromStack = functions
             console.log("STACK-ID: "+mystack.id);
             const parmData = {"stackClick": "/Stacks/$mystack.id"};
             const pushData = {
-              "notification_title": "News Alert",
+              "notification_title": mystack.title,
               "notification_text": mystack.title,
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
