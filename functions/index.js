@@ -71,7 +71,7 @@ exports.pushMessageFromStack = functions
             console.log("STACK-ID: "+mystack.id);
             const parmData = {"stackClick": "/Stacks/$mystack.id"};
             const pushData = {
-              "notification_title": mystack.title,
+              "notification_title": "News Alert",
               "notification_text": mystack.title,
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
