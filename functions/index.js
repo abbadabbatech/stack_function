@@ -61,7 +61,7 @@ exports.pushMessageFromStack = functions
     .firestore.document("Stacks/{id}")
     .onCreate((snap, _) => {
       const mystack = snap.data();
-      console.log("SNAP: "+mystack.toString())
+      console.log("SNAP: "+mystack.toString());
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
       db.collection("Players").doc(mystack.player.id).collection("Followers")
           .get()
