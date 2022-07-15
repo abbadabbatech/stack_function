@@ -62,7 +62,8 @@ exports.pushMessageFromStack = functions
     .onCreate((snap, _) => {
       const mystack = snap.data();
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
-      db.collection("Players").doc(mystack.player.id).collection("Followers").get()
+      db.collection("Players").doc(mystack.player.id).collection("Followers")
+          .get()
           .then((followers) => {
             followers.forEach((follow) => {
               sendusers = sendusers + "," + follow;
