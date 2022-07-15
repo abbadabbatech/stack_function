@@ -61,12 +61,13 @@ exports.pushMessageFromStack = functions
     .firestore.document("Stacks/{id}")
     .onCreate((snap, _) => {
       const mystack = snap.data();
+      console.log("SNAP: "+mystack.toString())
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
       db.collection("Players").doc(mystack.player.id).collection("Followers")
           .get()
           .then((followers) => {
             followers.forEach((follow) => {
-              sendusers = sendusers + "," + follow;
+              sendusers = sendusers + "," + follow.follower;
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+mystack.id);
@@ -80,6 +81,6 @@ exports.pushMessageFromStack = functions
               "parameter_data": parmData,
               "timestamp": Date.now(),
             };
-            db.collection("ff_push_notifications").doc.set(pushData);
+            db.collection("ff_push_notifications").add(pushData);
           });
     });
