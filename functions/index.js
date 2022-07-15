@@ -73,14 +73,14 @@ exports.pushMessageFromStack = functions
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
-            //const parmData = {"stackClick": "/Stacks/${mystack.id}"};
+            const parmData = {"stackClick": "/Stacks/${mystack.id}"};
             const pushData = {
               "notification_title": "News Alert",
               "notification_text": mystack.title,
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
               "imitial_page_name": "Stack",
-              "parameter_data": "{'stackClick': '/Stacks/${mystack.id}'}",
+              "parameter_data": "${paramData}",
               "timestamp": date_ob,
             };
             db.collection("ff_push_notifications").add(pushData);
