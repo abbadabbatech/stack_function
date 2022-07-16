@@ -62,14 +62,16 @@ exports.pushMessageFromStack = functions
     .onCreate((snap, context) => {
       const mystack = snap.data();
       const stackid = context.params.id;
-      // console.log("SNAP: "+mystack.toString());
+      console.log("STACK: "+stackid);
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
       const dateObj = new Date();
       db.collection("Players").doc(mystack.player.id).collection("Followers")
           .get()
           .then((followers) => {
             followers.forEach((follow) => {
-              sendusers = sendusers + ",/users/" + follow.follower.id;
+              //console.log("FOLLOW: "+ follow.toString());
+              const myfollow = follow.data().follower;
+              sendusers = sendusers + ",/users/" + myfollow.id;
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
