@@ -71,7 +71,7 @@ exports.pushMessageFromStack = functions
             followers.forEach((follow) => {
               //console.log("FOLLOW: "+ follow.toString());
               const myfollow = follow.data().follower;
-              sendusers = sendusers + ",/users/" + myfollow.id;
+              sendusers = sendusers + ",/" + myfollow.ref.path;
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
