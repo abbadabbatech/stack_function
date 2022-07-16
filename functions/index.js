@@ -59,12 +59,12 @@ exports.getStacks = functions.https.onRequest(app);
 exports.pushMessageFromStack = functions
     .runWith({timeoutSeconds: 540})
     .firestore.document("Stacks/{id}")
-    .onCreate(async (snap, _) => {
+    .onCreate((snap, _) => {
       const mystack = snap.data();
       const stackid = snap.data().id;
-      console.log("SNAP: "+mystack.toString());
+      // console.log("SNAP: "+mystack.toString());
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
-      let date_ob = new Date();
+      const dateObj = new Date();
       db.collection("Players").doc(mystack.player.id).collection("Followers")
           .get()
           .then((followers) => {
@@ -73,15 +73,15 @@ exports.pushMessageFromStack = functions
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
-            const parmData = {"stackClick": "/Stacks/${mystack.id}"};
+            // const parmData = {"stackClick": "/Stacks/${mystack.id}"};
             const pushData = {
               "notification_title": "News Alert",
               "notification_text": mystack.title,
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
               "imitial_page_name": "Stack",
-              "parameter_data": "${paramData}",
-              "timestamp": date_ob,
+              "parameter_data": "{'stackClick': '/Stacks/${mystack.id}'}",
+              "timestamp": dateObj,
             };
             db.collection("ff_push_notifications").add(pushData);
           });
