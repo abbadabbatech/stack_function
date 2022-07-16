@@ -59,9 +59,9 @@ exports.getStacks = functions.https.onRequest(app);
 exports.pushMessageFromStack = functions
     .runWith({timeoutSeconds: 540})
     .firestore.document("Stacks/{id}")
-    .onCreate((snap, _) => {
+    .onCreate((snap, context) => {
       const mystack = snap.data();
-      const stackid = snap.data().id;
+      const stackid = context.params.id;
       // console.log("SNAP: "+mystack.toString());
       let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
       const dateObj = new Date();
@@ -80,7 +80,7 @@ exports.pushMessageFromStack = functions
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
               "imitial_page_name": "Stack",
-              "parameter_data": "{'stackClick': '/Stacks/${mystack.id}'}",
+              "parameter_data": "{'stackClick': '/Stacks/${stackid}'}",
               "timestamp": dateObj,
             };
             db.collection("ff_push_notifications").add(pushData);
