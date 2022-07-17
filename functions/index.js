@@ -69,9 +69,9 @@ exports.pushMessageFromStack = functions
           .get()
           .then((followers) => {
             followers.forEach((follow) => {
-              //console.log("FOLLOW: "+ follow.toString());
               const myfollow = follow.data().follower;
-              sendusers = sendusers + ",/" + myfollow.ref.path;
+              console.log("FOLLOW: "+ myfollow.toString());
+              sendusers = sendusers + ",/" + myfollow.doc.ref.path;
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
@@ -86,5 +86,7 @@ exports.pushMessageFromStack = functions
               "timestamp": dateObj,
             };
             db.collection("ff_push_notifications").add(pushData);
+            
           });
+          return 0;
     });
