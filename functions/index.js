@@ -86,7 +86,6 @@ exports.pushMessageFromStack = functions
               "timestamp": dateObj,
             };
             db.collection("ff_push_notifications").add(pushData);
-            
           });
-          return 0;
+      return 0;
     });
