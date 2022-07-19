@@ -70,7 +70,7 @@ exports.pushMessageFromStack = functions
           .then((followers) => {
             followers.forEach((follow) => {
               const myfollow = follow.data().follower;
-              console.log("FOLLOW: "+ myfollow.path.toString());
+              // console.log("FOLLOW: "+ myfollow.path.toString());
               sendusers = sendusers + ",/" + myfollow.path;
             });
             console.log("SENDUSERS: "+sendusers);
