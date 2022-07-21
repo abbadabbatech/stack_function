@@ -84,7 +84,7 @@ exports.pushMessageFromStack = functions
               "notification_text": mystack.title,
               "notification_image_url": mystack.thumbnail,
               "user_refs": sendusers,
-              "imitial_page_name": "Stack",
+              "initial_page_name": "Stack",
               "parameter_data": paramData,
               "timestamp": dateObj,
             };
