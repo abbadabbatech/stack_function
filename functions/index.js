@@ -66,13 +66,14 @@ exports.pushMessageFromStack = functions
       let sendusers = "/";
       const dateObj = new Date();
       db.collection("Players").doc(mystack.player.id)
-          .get("fans")
-          .then((fans) => {
-            fans.forEach((fan) => {
-              const myfan = fan.data().path;
-              // console.log("FOLLOW: "+ myfollow.path.toString());
+          .get()
+          .then((doc) => {
+            const fans = doc.data().fans;
+            console.log("FANS: "+fans.toString());
+            for (let i = 0; i < fans.length; i++) {
+              const myfan = fans[i].data().path;
               sendusers = sendusers + myfan +",/";
-            });
+            }
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
             // const parmData = {"stackClick": "/Stacks/${mystack.id}"};
