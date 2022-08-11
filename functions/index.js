@@ -63,15 +63,15 @@ exports.pushMessageFromStack = functions
       const mystack = snap.data();
       const stackid = context.params.id;
       console.log("STACK: "+stackid);
-      let sendusers = "/users/0XlTlvQiI6Q36k20Z8YYSLzns503";
+      let sendusers = "/";
       const dateObj = new Date();
-      db.collection("Players").doc(mystack.player.id).collection("Followers")
-          .get()
-          .then((followers) => {
-            followers.forEach((follow) => {
-              const myfollow = follow.data().follower;
+      db.collection("Players").doc(mystack.player.id)
+          .get("fans")
+          .then((fans) => {
+            fans.forEach((fan) => {
+              const myfan = fan.data().path;
               // console.log("FOLLOW: "+ myfollow.path.toString());
-              sendusers = sendusers + ",/" + myfollow.path;
+              sendusers = sendusers + myfan +",/";
             });
             console.log("SENDUSERS: "+sendusers);
             console.log("STACK-ID: "+stackid);
